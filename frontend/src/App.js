@@ -188,21 +188,21 @@ function App() {
           <div className="w-full h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-              <Pie
-                data={dataGrafico}
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                dataKey="value"
-                label
-              >
-                {dataGrafico.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value) => `R$ ${value}`} />
-              <Legend />
-            </PieChart>
+                <Pie
+                  data={dataGrafico}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  dataKey="value"
+                  label
+                >
+                  {dataGrafico.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => `R$ ${value}`} />
+                <Legend />
+              </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -296,50 +296,50 @@ function App() {
       </div>
 
       {/* TABELA */}
-      <div className="bg-white p-6 rounded-xl shadow">
+      <div className="bg-white p-6 rounded-xl shadow overflow-x-auto">
         <h2 className="text-lg font-bold mb-4">Transações</h2>
 
-        <table className="w-full">
-          <thead>
-            <tr className="border-b text-left">
-              <th>ID</th>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th>Tipo</th>
-              <th>Categoria</th>
-              <th>Data</th>
-              <th>Ações</th>
+        <table className="w-full text-sm">
+          <thead className="bg-gray-200">
+            <tr className="text=center">
+              <th className="px-3 py-2">ID</th>
+              <th className="px-3 py-2">Descrição</th>
+              <th className="px-3 py-2">Valor</th>  
+              <th className="px-3 py-2">Categoria</th>
+              <th className="px-3 py-2">Data</th>
+              <th className="px-3 py-2">Ações</th>
             </tr>
           </thead>
 
           <tbody>
             {transacoes.map((t) => (
-              <tr key={t.id} className="border-b hover:bg-gray-50">
-                <td>{t.id}</td>
-                <td>{t.descricao}</td>
+              <tr key={t.id} className="border-b hover:bg-gray-50 text-center">
+                <td className="px-3 py-2">{t.id}</td>
+                <td className="px-3 py-2">{t.descricao}</td>
 
-                <td className={t.tipo === "entrada" ? "text-green-600 font-bold" : "text-red-600 font-bold"}>
-                  R$ {t.valor}
+                <td className={t.tipo === "entrada" ? "text-green-600 px-3 py-2" : "text-red-600 px-3 py-2"}>
+                  R$ {t.tipo === "entrada" ? t.valor : `-${t.valor}`}
                 </td>
 
-                <td>{t.tipo}</td>
-                <td>{t.categoria}</td>
-                <td>{t.data}</td>
+                <td className="px-3 py-2">{t.categoria}</td>
+                <td className="px-3 py-2">{t.data}</td>
 
-                <td className="flex gap-2">
+                <td className="px-3 py-2">
+                  <div className="flex gap-2 justify-center">
                   <button
                     onClick={() => editarTransacao(t)}
-                    className="bg-yellow-400 px-3 py-1 rounded"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
                   >
                     Editar
                   </button>
 
                   <button
                     onClick={() => deletarTransacao(t.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded"
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
                   >
                     Deletar
                   </button>
+                  </div>
                 </td>
               </tr>
             ))}
