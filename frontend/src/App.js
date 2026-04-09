@@ -303,7 +303,6 @@ function App() {
         <table className="w-full text-sm">
           <thead className="bg-gray-200">
             <tr className="text=center">
-              <th className="px-3 py-2">ID</th>
               <th className="px-3 py-2">Descrição</th>
               <th className="px-3 py-2">Valor</th>  
               <th className="px-3 py-2">Categoria</th>
@@ -315,7 +314,6 @@ function App() {
           <tbody>
             {transacoes.map((t) => (
               <tr key={t.id} className="border-b hover:bg-gray-50 text-center">
-                <td className="px-3 py-2">{t.id}</td>
                 <td className="px-3 py-2">{t.descricao}</td>
 
                 <td className={t.tipo === "entrada" ? "text-green-600 px-3 py-2" : "text-red-600 px-3 py-2"}>
