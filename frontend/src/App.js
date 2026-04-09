@@ -152,6 +152,37 @@ function App() {
   };
   const dadosMensais = agruparPorMes();
 
+  const agruparPorCategoria = () => {
+    const mapa = {};
+
+    transacoes.forEach((t) => {
+      if (t.tipo !== "saida") return;
+
+      const categoria = t.categoria || "Outros";
+
+      if (!mapa[categoria]) {
+        mapa[categoria] = 0;
+      }
+
+      mapa[categoria] += t.valor;
+    });
+
+    return Object.entries(mapa).map(([categoria, valor]) => ({
+      name: categoria,
+      value: valor
+    }));
+  };
+  const COLORS_CATEGORIAS = [
+    "#3b82f6",
+    "#22c55e",
+    "#f59e0b",
+    "#ef4444",
+    "#8b5cf6",
+    "#14b8a6"
+  ];
+
+  const dadosCategorias = agruparPorCategoria();
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -230,10 +261,36 @@ function App() {
           </div>
         </div>
 
-        {/* GRAFICO 3 (placeholder por enquanto) */}
-        <div className="bg-white p-4 rounded-xl shadow flex items-center justify-center">
-          <p className="text-gray-500">Gráfico de categorias (em breve)</p>
-        </div>
+        <div className="bg-white p-4 rounded-xl shadow">
+  <h2 className="text-lg font-bold mb-4 text-center">
+    Gastos por Categoria
+  </h2>
+
+  <div className="w-full h-[250px]">
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={dadosCategorias}
+          cx="50%"
+          cy="50%"
+          outerRadius={80}
+          dataKey="value"
+          label
+        >
+          {dadosCategorias.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={COLORS_CATEGORIAS[index % COLORS_CATEGORIAS.length]}
+            />
+          ))}
+        </Pie>
+
+        <Tooltip formatter={(value) => `R$ ${value}`} />
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+</div>
 
       </div>
 
@@ -304,7 +361,7 @@ function App() {
           <thead className="bg-gray-200">
             <tr className="text=center">
               <th className="px-3 py-2">Descrição</th>
-              <th className="px-3 py-2">Valor</th>  
+              <th className="px-3 py-2">Valor</th>
               <th className="px-3 py-2">Categoria</th>
               <th className="px-3 py-2">Data</th>
               <th className="px-3 py-2">Ações</th>
@@ -325,19 +382,19 @@ function App() {
 
                 <td className="px-3 py-2">
                   <div className="flex gap-2 justify-center">
-                  <button
-                    onClick={() => editarTransacao(t)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
-                  >
-                    <Pencil size={16} />
-                  </button>
+                    <button
+                      onClick={() => editarTransacao(t)}
+                      className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
+                    >
+                      <Pencil size={16} />
+                    </button>
 
-                  <button
-                    onClick={() => deletarTransacao(t.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                    <button
+                      onClick={() => deletarTransacao(t.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 </td>
               </tr>
