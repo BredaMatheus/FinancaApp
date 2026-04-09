@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -330,14 +331,14 @@ function App() {
                     onClick={() => editarTransacao(t)}
                     className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
                   >
-                    Editar
+                    <Pencil size={16} />
                   </button>
 
                   <button
                     onClick={() => deletarTransacao(t.id)}
                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200"
                   >
-                    Deletar
+                    <Trash2 size={16} />
                   </button>
                   </div>
                 </td>
