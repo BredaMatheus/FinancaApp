@@ -9,7 +9,8 @@ import {
   Legend,
   PieChart,
   Pie,
-  Cell
+  Cell,
+  ResponsiveContainer
 } from "recharts";
 
 function App() {
@@ -184,8 +185,9 @@ function App() {
             Resumo Visual
           </h2>
 
-          <div className="flex justify-center">
-            <PieChart width={300} height={250}>
+          <div className="w-full h-[250px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
               <Pie
                 data={dataGrafico}
                 cx="50%"
@@ -198,28 +200,32 @@ function App() {
                   <Cell key={`cell-${index}`} fill={COLORS[index]} />
                 ))}
               </Pie>
-
               <Tooltip formatter={(value) => `R$ ${value}`} />
               <Legend />
             </PieChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
         {/* GRAFICO 2 */}
         <div className="bg-white p-4 rounded-xl shadow">
-          <h2 className="text-lg font-bold mb-4 text-center">Evolução Mensal</h2>
+          <h2 className="text-lg font-bold mb-4 text-center">
+            Evolução Mensal
+          </h2>
 
-          <div className="flex justify-center">
-            <LineChart width={300} height={250} data={dadosMensais}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="mes" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
+          <div className="w-full h-[250px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={dadosMensais}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="mes" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
 
-              <Line type="monotone" dataKey="entradas" stroke="#22c55e" />
-              <Line type="monotone" dataKey="saidas" stroke="#ef4444" />
-            </LineChart>
+                <Line type="monotone" dataKey="entradas" stroke="#22c55e" />
+                <Line type="monotone" dataKey="saidas" stroke="#ef4444" />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
